@@ -102,6 +102,13 @@ pub struct Opt {
         help = "Specify the network interface for the LocalIP readout"
     )]
     pub interface: Option<String>,
+
+    #[clap(
+        long = "online",
+        help = "Get pcie file online"
+    )]
+    #[serde(skip_serializing, skip_deserializing)]
+    pub online: bool,
 }
 
 impl Opt {
@@ -148,6 +155,10 @@ impl Opt {
 
         if args.ascii_artists {
             self.ascii_artists = true;
+        }
+
+        if args.online {
+            self.online = true;
         }
 
         if args.config.is_some() {

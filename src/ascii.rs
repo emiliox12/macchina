@@ -75,9 +75,8 @@ pub fn get_ascii_from_file_override_color(file_path: &Path, color: Color) -> Res
     let mut reader = BufReader::new(file);
     let mut buffer: Vec<u8> = Vec::new();
     reader.read_to_end(&mut buffer)?;
-    let mut text = buffer.into_text().unwrap_or_default();
-    text.patch_style(Style::default().fg(color));
-    Ok(text)
+    let text = buffer.into_text().unwrap_or_default();
+    Ok(text.clone().patch_style(Style::default().fg(color)))
 }
 
 // The following is a slightly modified

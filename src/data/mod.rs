@@ -194,7 +194,7 @@ pub fn get_all_readouts<'a>(
             ReadoutKey::WindowManager => {
                 handle_readout_window_manager(&mut readout_values, &general_readout)
             }
-            ReadoutKey::GPU => handle_readout_gpu(&mut readout_values, &general_readout),
+            ReadoutKey::GPU => handle_readout_gpu(&mut readout_values, &general_readout, opt),
             ReadoutKey::DiskSpace => {
                 handle_readout_disk_space(&mut readout_values, &general_readout, theme, opt)
             }
@@ -498,8 +498,8 @@ fn handle_readout_window_manager(
     }
 }
 
-fn handle_readout_gpu(readout_values: &mut Vec<Readout>, general_readout: &GeneralReadout) {
-    match general_readout.gpus() {
+fn handle_readout_gpu(readout_values: &mut Vec<Readout>, general_readout: &GeneralReadout, opt: &Opt) {
+    match general_readout.gpus(opt.online) {
         Ok(gpus) => {
             for gpu in gpus {
                 readout_values.push(Readout::new(ReadoutKey::GPU, gpu));

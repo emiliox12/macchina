@@ -110,7 +110,7 @@ pub fn write_buffer_to_console(
         .iter()
         .enumerate()
         .filter(|(_previous, cell)| {
-            let curr_width = cell.symbol.width();
+            let curr_width = cell.symbol().width();
             if curr_width == 0 {
                 return false;
             }
